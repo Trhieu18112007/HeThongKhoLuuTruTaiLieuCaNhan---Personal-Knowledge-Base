@@ -1,64 +1,74 @@
-Người	Vai trò	Nhiệm vụ chính	File phụ trách	Nhánh Git
-Bạn	Nhóm trưởng (Scrum Master) + Data	Repo, GitHub Projects, PLAN.md, data.js, review và merge PR, README, deploy, soạn slide pitching	data.js, README.md, PLAN.md	feature-data, docs-readme
-Hiền	UI/UX	:root (xanh-trắng LHU), Navbar/Footer, layout 3 trang, Card/List view, Responsive, trạng thái rỗng	css/style.css, index.html, library.html	feature-layout, feature-card-list
-Khang	Logic dữ liệu	Hàm thuần: filterByKeyword, filterByType, filterByTag, sortByViews, sortByDate, getTopViewed, getRecent (không đụng DOM)	js/logic.js	feature-filter-logic
-Đăng	Tương tác (Library + Home)	Render bằng map(), search real-time, lọc Tag/định dạng, chuyển Card⇄List, widget trang chủ	js/ui.js, js/app.js	feature-search-ui
-Tài	Trang chi tiết + Note + Form	detail.html, đọc id từ URL, ghi chú, form thêm tài liệu (Regex URL, báo lỗi khi gõ), tổng hợp PDF nhật ký AI	detail.html, js/detail.js, css/detail.css	feature-detail-note
+# LHU Second Brain - Kho lưu trữ tài liệu cá nhân
 
-Lưu ý khi giao: vị trí Khang (Logic) và Đăng (DOM) cần JavaScript vững nhất, vì rubric dành 30% cho JS/DOM. Mình xếp theo thứ tự bạn đưa tên, nên nếu bạn biết ai mạnh JS hơn thì đổi chỗ cho hợp. Cách đổi dễ nhất là hoán đổi trọn vai trò cho nhau, không chia nhỏ file.
+> Dự án học phần **Thiết kế Web (111101)** · Trường Đại học Lạc Hồng · Đề tài 2.4.3 (EdTech): Personal Knowledge Base
+> **Nhóm 6** · Lớp **25CT112** · Giảng viên: **Nguyễn Minh Phúc**
 
-Việc chung
-Việc	Ai làm
-prompt_log.md	Mỗi người tự ghi prompt của mình (thầy hỏi ngẫu nhiên “tại sao hỏi vậy?”)
-PDF “Nhật ký đồng hành cùng AI”	Tài tổng hợp, mỗi người gửi prompt + ảnh chụp lỗi của mình
-Video demo 3–5 phút	Hiền quay, cả nhóm góp kịch bản
-Slide + kịch bản pitching 5 phút	Bạn soạn, mỗi người nói phần của mình
-Test chéo (Mobile + Console)	Khang test code của Đăng, Đăng test code của Khang
-Danh sách Issue để tạo ngay trên GitHub Projects (cột To-do)
+**Live Demo:** https://trhieu18112007.github.io/HeThongKhoLuuTruTaiLieuCaNhan---Personal-Knowledge-Base/
+**Repository:** https://github.com/Trhieu18112007/HeThongKhoLuuTruTaiLieuCaNhan---Personal-Knowledge-Base
 
-Hiền
+## Thành viên và vai trò
 
-[ ] Wireframe 3 trang (vẽ tay hoặc Figma/Canva)
-[ ] Biến :root và Navbar/Footer chung
-[ ] Layout index.html và library.html
-[ ] Card view (Grid) và List view (Flexbox)
-[ ] Responsive + trạng thái “Không tìm thấy tài liệu”
+| Thành viên | GitHub | Vai trò Scrum | Vai trò kỹ thuật |
+|---|---|---|---|
+| Hiếu | [@TrHieu18112007](https://github.com/TrHieu18112007) | Scrum Master | Data, quản lý repo, deploy |
+| Nguyễn Thanh Hiền | [@NGUYENTHANHHIEN26](https://github.com/NGUYENTHANHHIEN26) | Dev Team | UI/UX |
+| Hà Lưu Nhật Khang | [@KhangHa2007](https://github.com/KhangHa2007) | Dev Team | Logic dữ liệu |
+| Hoàng Hải Đăng | [@Ttrandangkhoa98](https://github.com/Ttrandangkhoa98) | Dev Team | Tương tác DOM |
+| Tran Tan Tai | [@Trantantai1](https://github.com/Trantantai1) | Dev Team | Trang chi tiết, ghi chú, form |
 
-Khang
+## Bài toán
 
-[ ] Liệt kê tên hàm, tham số, giá trị trả về (gửi cho Đăng)
-[ ] filterByKeyword (không phân biệt hoa thường, xử lý chuỗi rỗng)
-[ ] filterByType và filterByTag
-[ ] sortByViews, sortByDate, getTopViewed, getRecent
+Sinh viên lưu tài liệu học tập ở nhiều nơi (Zalo, Drive, bookmark, thư mục máy), đến mùa thi hoặc làm đồ án thì mất thời gian tìm lại và quên mình đã ghi chú gì.
 
-Đăng
+**Câu hỏi dự án:** làm thế nào để sinh viên LHU gom tài liệu (PDF, video, liên kết) về một nơi, tìm lại nhanh theo từ khóa, tag hoặc định dạng, và ghi chú ngay khi đọc?
 
-[ ] Render danh sách từ DOCUMENTS bằng map()
-[ ] Ô search real-time (sự kiện input)
-[ ] Bộ lọc Tag và định dạng (PDF/Video/Link)
-[ ] Nút chuyển Card⇄List
-[ ] Widget trang chủ (xem nhiều nhất, mới thêm)
+## Tính năng
 
-Tài
+- Xem tài liệu dạng **thẻ (Card)** hoặc **danh sách (List)**
+- **Tìm kiếm real-time** theo tiêu đề, mô tả, tag; lọc theo định dạng và tag; sắp xếp
+- **Trang chi tiết** với ô **ghi chú** lưu được (tối đa 500 ký tự), đếm lượt xem
+- **Trang chủ** có thống kê, "Xem nhiều nhất" và "Mới thêm"
+- **Form thêm tài liệu** có kiểm tra dữ liệu bằng Regex, báo lỗi ngay khi gõ
 
-[ ] Wireframe + khung detail.html
-[ ] Đọc id từ URL và hiển thị tài liệu
-[ ] Ô ghi chú (kiểm tra rỗng, giới hạn độ dài, báo lỗi)
-[ ] Form thêm tài liệu mới (Regex URL, validation khi gõ)
-[ ] Khung PDF nhật ký đồng hành cùng AI
+*(Chỉnh danh sách này theo những gì thực tế đã hoàn thành khi chốt.)*
 
-Bạn
+## Công nghệ
 
-[ ] Tạo repo, mời Khang/Tài/Hiền/Đăng làm Collaborators, bật GitHub Projects
-[ ] PLAN.md + data.js (10–15 tài liệu mẫu) → đẩy lên main đầu tiên
-[ ] Review PR bằng AI và merge
-[ ] README (tên dự án, vai trò từng người, link Live Demo, 3–5 prompt nổi bật)
-[ ] Deploy GitHub Pages + slide pitching
-Thứ tự để không ai phải chờ
-Bạn xong data.js trước, rồi nhắn cả nhóm đọc và đồng ý với tên thuộc tính (id, title, type, tags, description, url, views, addedAt, note).
-Hiền, Khang, Đăng, Tài làm song song trên nhánh riêng.
-Đăng nối hàm của Khang vào giao diện của Hiền, bạn review PR rồi merge.
-3 quy tắc cần nhắc cả nhóm ngay từ đầu
-Mỗi người chỉ sửa file của mình, cần sửa file người khác thì nhắn họ
-Không push thẳng lên main, luôn tạo Pull Request
-Commit nhỏ, đều đặn theo mẫu [Tên-Tính-Năng] mô tả (rubric Git/Agile 15% tính cả lịch sử commit của từng người)
+HTML5 · CSS3 · JavaScript thuần (không backend) · dữ liệu lưu bằng `localStorage` · deploy GitHub Pages.
+
+## Chạy trên máy
+
+```bash
+git clone https://github.com/Trhieu18112007/HeThongKhoLuuTruTaiLieuCaNhan---Personal-Knowledge-Base.git
+cd HeThongKhoLuuTruTaiLieuCaNhan---Personal-Knowledge-Base
+```
+
+Mở `index.html` bằng trình duyệt (hoặc dùng extension Live Server trong VS Code). Không cần cài thêm gì.
+
+## Cấu trúc thư mục
+
+```
+css/     style.css (Hiền), detail.css (Tài)
+js/      data.js, storage.js (Hiếu) · logic.js (Khang) · ui.js, app.js (Đăng) · detail.js, add.js (Tài)
+docs/    wireframe, BACKLOG.md, components.md, screenshots/
+PLAN.md  kế hoạch, Data Contract, chữ ký hàm, Sprint
+prompt_log.md  nhật ký làm việc với AI
+```
+
+## Quy trình làm việc
+
+Scrum rút gọn trong 120 phút (2 Sprint ngắn), bảng Kanban trên GitHub Projects, mỗi tính năng một nhánh `feature-...`, không push thẳng `main`, mọi thay đổi qua Pull Request do nhóm trưởng review. Chi tiết xem [PLAN.md](PLAN.md).
+
+## Làm việc với AI
+
+Nhóm dùng Claude, ChatGPT và Gemini. Toàn bộ prompt được ghi trong [prompt_log.md](prompt_log.md).
+
+### Prompt nổi bật
+
+| # | Người | Mục tiêu | Prompt | Kết quả và tùy chỉnh |
+|---|---|---|---|---|
+| 1 | | | | |
+| 2 | | | | |
+| 3 | | | | |
+
+*(Hiếu tổng hợp 3-5 prompt nổi bật nhất từ `prompt_log.md` ở bước Chốt.)*
