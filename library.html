@@ -3,51 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kho tài liệu · Kho tài liệu cá nhân</title>
+  <meta name="description" content="Tìm kiếm, lọc và quản lý tài liệu PDF, video, liên kết theo từ khóa và tag.">
+  <title>Kho tài liệu | LHU Second Brain</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="kb-header">
     <nav class="kb-nav" aria-label="Điều hướng chính">
-      <a class="kb-brand" href="index.html">📚 Kho tài liệu</a>
-      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle">
-      <label for="kb-nav-toggle" class="kb-nav__burger" aria-label="Mở menu">☰</label>
+      <a class="kb-brand" href="index.html" aria-label="LHU Second Brain, về trang chủ"><span aria-hidden="true">📚</span> LHU Second Brain</a>
+      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle" aria-label="Hiển thị menu điều hướng">
+      <label for="kb-nav-toggle" class="kb-nav__burger" aria-hidden="true">☰</label>
       <ul class="kb-nav__menu">
         <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="library.html" class="kb-active">Kho tài liệu</a></li>
+        <li><a href="library.html" class="kb-active" aria-current="page">Kho tài liệu</a></li>
         <li><a href="add.html">Thêm tài liệu</a></li>
       </ul>
     </nav>
   </header>
   <main>
-    <h1>Kho tài liệu</h1>
-    <div class="kb-toolbar">
-      <input class="kb-input" id="search-input" type="search" placeholder="Tìm theo tiêu đề, mô tả, tag..." aria-label="Tìm tài liệu">
-      <select class="kb-select" id="type-filter" aria-label="Lọc theo định dạng">
-        <option value="all">Tất cả định dạng</option><option value="pdf">PDF</option><option value="video">Video</option><option value="link">Liên kết</option>
-      </select>
-      <select class="kb-select" id="sort-select" aria-label="Sắp xếp">
-        <option value="views">Xem nhiều nhất</option><option value="date">Mới nhất</option><option value="title">Tên A → Z</option>
-      </select>
-      <div class="kb-view-toggle" id="view-toggle" role="group" aria-label="Kiểu hiển thị">
-        <button class="kb-btn kb-btn--active" type="button" data-view="card">Thẻ</button>
-        <button class="kb-btn kb-btn--ghost" type="button" data-view="list">Danh sách</button>
+    <div class="kb-page-head">
+      <div><span class="kb-section-label">THƯ VIỆN CÁ NHÂN</span><h1>Kho tài liệu</h1><p>Tìm tài liệu bạn cần, lọc theo loại và chủ đề, chọn cách hiển thị phù hợp.</p></div>
+      <a class="kb-btn kb-add-link" href="add.html">+ Thêm tài liệu</a>
+    </div>
+
+    <section class="kb-library-panel" aria-label="Tìm kiếm và bộ lọc">
+      <div class="kb-toolbar">
+        <div class="kb-search-field">
+          <label for="searchInput" class="kb-field-label">Tìm kiếm</label>
+          <!-- ID searchInput theo js/app.js hiện tại của Đăng -->
+          <input class="kb-input" id="searchInput" type="search" placeholder="Tìm tên, mô tả hoặc tag…" autocomplete="off">
+        </div>
+        <div class="kb-toolbar__field">
+          <label class="kb-field-label" for="type-filter">Định dạng</label>
+          <select class="kb-select" id="type-filter">
+            <option value="all">Tất cả định dạng</option>
+            <option value="pdf">PDF</option>
+            <option value="video">Video</option>
+            <option value="link">Liên kết</option>
+          </select>
+        </div>
+        <div class="kb-toolbar__field">
+          <label class="kb-field-label" for="sort-select">Sắp xếp</label>
+          <select class="kb-select" id="sort-select">
+            <option value="views">Xem nhiều nhất</option>
+            <option value="date">Mới nhất</option>
+            <option value="title">Tên A → Z</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="kb-chips" id="tag-chips"><button class="kb-chip kb-chip--active" type="button">css</button><button class="kb-chip" type="button">html</button><button class="kb-chip" type="button">javascript</button></div>
-    <p class="kb-result-count" id="result-count">Tìm thấy 3 tài liệu</p>
-    <!-- Dữ liệu giả để dựng bố cục; Đăng sẽ render lại bằng JS (xóa thẻ mẫu khi KB-30 xong) -->
-    <div class="kb-doc-container" id="doc-container">
-      <article class="kb-card" data-id="1"><span class="kb-badge kb-badge--pdf">PDF</span><h3 class="kb-card__title"><a href="detail.html?id=1">Giáo trình HTML5 cơ bản</a></h3><p class="kb-card__desc">Tổng quan thẻ Semantic, form và đa phương tiện trong HTML5.</p><ul class="kb-card__tags"><li class="kb-tag">html</li><li class="kb-tag">web</li></ul><div class="kb-card__meta"><span>👁 120</span><span>2026-10-01</span></div></article>
-      <article class="kb-card" data-id="2"><span class="kb-badge kb-badge--video">Video</span><h3 class="kb-card__title"><a href="detail.html?id=2">CSS Grid trong 30 phút</a></h3><p class="kb-card__desc">Bố cục lưới hai chiều, responsive không cần framework.</p><ul class="kb-card__tags"><li class="kb-tag">css</li></ul><div class="kb-card__meta"><span>👁 98</span><span>2026-10-12</span></div></article>
-      <article class="kb-card" data-id="3"><span class="kb-badge kb-badge--link">Liên kết</span><h3 class="kb-card__title"><a href="detail.html?id=3">MDN: Array.prototype.filter</a></h3><p class="kb-card__desc">Tài liệu tham khảo hàm filter, map, reduce.</p><ul class="kb-card__tags"><li class="kb-tag">javascript</li></ul><div class="kb-card__meta"><span>👁 75</span><span>2026-11-02</span></div></article>
-    </div>
-    <!-- Mẫu trạng thái rỗng (Đăng chèn khi 0 kết quả):
-    <div class="kb-empty"><p>Không tìm thấy tài liệu phù hợp.</p><button class="kb-btn" type="button">Xóa bộ lọc</button></div> -->
+      <div class="kb-filter-row"><span class="kb-field-label">Chủ đề:</span><div class="kb-chips" id="tag-chips" role="group" aria-label="Lọc theo tag"></div></div>
+      <div class="kb-result-row">
+        <p class="kb-result-count" id="result-count" aria-live="polite">Đang tải tài liệu…</p>
+        <div class="kb-view-toggle" id="view-toggle" role="group" aria-label="Kiểu hiển thị">
+          <button class="kb-btn kb-btn--active" id="cardViewBtn" type="button" data-view="card" aria-pressed="true">▦ Thẻ</button>
+          <button class="kb-btn kb-btn--ghost" id="listViewBtn" type="button" data-view="list" aria-pressed="false">☷ Danh sách</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cùng một DOM dùng cho Card/List; renderDocumentCards ở js/ui.js sẽ gắn nội dung -->
+    <section id="doc-container" class="kb-doc-container kb-view-card" aria-label="Danh sách tài liệu" aria-live="polite"></section>
   </main>
-  <footer class="kb-footer">
-    <p>© 2026 Nhóm 6 · Thiết kế Web · Đại học Lạc Hồng</p>
-  </footer>
+  <footer class="kb-footer"><p>© 2026 Nhóm 6 · Thiết kế Web (111101) · Đại học Lạc Hồng</p></footer>
   <script src="js/data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/logic.js"></script>

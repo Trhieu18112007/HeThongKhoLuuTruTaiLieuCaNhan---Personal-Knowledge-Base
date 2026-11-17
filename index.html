@@ -3,40 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trang chủ · Kho tài liệu cá nhân</title>
+  <meta name="description" content="LHU Second Brain - quản lý và tìm kiếm tài liệu học tập PDF, video, liên kết.">
+  <title>Trang chủ | LHU Second Brain</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="kb-header">
     <nav class="kb-nav" aria-label="Điều hướng chính">
-      <a class="kb-brand" href="index.html">📚 Kho tài liệu</a>
-      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle">
-      <label for="kb-nav-toggle" class="kb-nav__burger" aria-label="Mở menu">☰</label>
+      <a class="kb-brand" href="index.html" aria-label="LHU Second Brain, về trang chủ"><span aria-hidden="true">📚</span> LHU Second Brain</a>
+      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle" aria-label="Hiển thị menu điều hướng">
+      <label for="kb-nav-toggle" class="kb-nav__burger" aria-hidden="true">☰</label>
       <ul class="kb-nav__menu">
-        <li><a href="index.html" class="kb-active">Trang chủ</a></li>
+        <li><a href="index.html" class="kb-active" aria-current="page">Trang chủ</a></li>
         <li><a href="library.html">Kho tài liệu</a></li>
         <li><a href="add.html">Thêm tài liệu</a></li>
       </ul>
     </nav>
   </header>
   <main>
-    <section class="kb-hero">
-      <h1>Bộ não thứ hai của bạn</h1>
-      <p>Lưu PDF, video và liên kết học tập ở một nơi, tìm lại trong vài giây.</p>
+    <section class="kb-hero" aria-labelledby="kb-hero-heading">
+      <span class="kb-hero__eyebrow">KHO TRI THỨC CÁ NHÂN</span>
+      <h1 id="kb-hero-heading">Bộ não thứ hai<br>cho hành trình học tập</h1>
+      <p>Lưu trữ PDF, video và liên kết ở một nơi. Tìm nhanh, sắp xếp khoa học và ghi chú ngay khi đọc.</p>
       <form class="kb-hero__search" action="library.html" method="get" role="search">
-        <input class="kb-input" type="search" name="q" placeholder="Tìm tài liệu theo từ khóa..." aria-label="Tìm tài liệu">
-        <button class="kb-btn" type="submit">Tìm kiếm</button>
+        <label class="kb-sr-only" for="home-search">Tìm tài liệu</label>
+        <input class="kb-input" id="home-search" type="search" name="q" placeholder="Tìm tài liệu theo tên, mô tả, tag…" autocomplete="off">
+        <button class="kb-btn kb-btn--light" type="submit">Tìm kiếm</button>
       </form>
+      <div class="kb-hero__actions"><a class="kb-hero__link" href="library.html">Khám phá kho tài liệu <span aria-hidden="true">→</span></a></div>
     </section>
-    <div class="kb-widgets">
-      <section class="kb-widget"><h2>Xem nhiều nhất</h2><ul id="top-viewed"><li>Giáo trình HTML5 cơ bản · 120 lượt</li><li>Video CSS Grid · 98 lượt</li></ul></section>
-      <section class="kb-widget"><h2>Mới thêm</h2><ul id="recent"><li>Tài liệu JavaScript ES6 · 2026-11-10</li></ul></section>
-      <section class="kb-widget"><h2>Thống kê</h2><div id="stats"><p>12 tài liệu · 5 PDF · 4 video · 3 liên kết</p></div></section>
-    </div>
+
+    <section class="kb-stat-section" aria-labelledby="kb-stat-heading">
+      <div class="kb-section-heading">
+        <div><span class="kb-section-label">TỔNG QUAN</span><h2 id="kb-stat-heading">Thống kê kho tài liệu</h2></div>
+      </div>
+      <div id="stats" class="kb-stats" aria-live="polite"><p class="kb-loading">Đang tải số liệu…</p></div>
+    </section>
+
+    <section class="kb-home-sections" aria-label="Tài liệu nổi bật và mới thêm">
+      <section class="kb-widget" id="top-viewed" aria-labelledby="top-title">
+        <div class="kb-widget__heading"><div><span class="kb-section-label">KHÁM PHÁ</span><h2 id="top-title">Xem nhiều nhất</h2></div><a href="library.html?sort=views" class="kb-text-link">Xem tất cả</a></div>
+        <div id="home-top-container" class="kb-home-list" aria-live="polite"><p class="kb-loading">Đang tải tài liệu…</p></div>
+      </section>
+      <section class="kb-widget" aria-labelledby="recent-title">
+        <div class="kb-widget__heading"><div><span class="kb-section-label">CẬP NHẬT</span><h2 id="recent-title">Mới thêm gần đây</h2></div><a href="library.html?sort=date" class="kb-text-link">Xem tất cả</a></div>
+        <div id="recent" class="kb-home-list" aria-live="polite"><p class="kb-loading">Đang tải tài liệu…</p></div>
+      </section>
+    </section>
   </main>
-  <footer class="kb-footer">
-    <p>© 2026 Nhóm 6 · Thiết kế Web · Đại học Lạc Hồng</p>
-  </footer>
+  <footer class="kb-footer"><p>© 2026 Nhóm 6 · Thiết kế Web (111101) · Đại học Lạc Hồng</p></footer>
+  <!-- Giữ nguyên thứ tự script theo PLAN.md -->
   <script src="js/data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/logic.js"></script>

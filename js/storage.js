@@ -86,17 +86,17 @@ const KBStorage = (function () {
   }
 
   /**
-   * Thêm tài liệu mới. Truyền vào { title, type, tags, description, url }.
-   * Trả về tài liệu đã lưu (có id, views, addedAt, note) hoặc null nếu type không hợp lệ / ghi thất bại.
-   * Việc kiểm tra hợp lệ (validation) do trang thêm tài liệu làm TRƯỚC khi gọi hàm này.
+   * Thêm tài liệu mới. Truyền vào { title, type/format, tags, description, url }.
+   * Trả về tài liệu đã lưu (có id, views, addedAt, note) hoặc null nếu ghi thất bại.
    */
   function addDocument(input) {
-    if (!DOC_TYPES[input.type]) return null;
+    const docType = input.type || input.format;
+    if (typeof DOC_TYPES !== "undefined" && !DOC_TYPES[docType]) return null;
     const url = String(input.url || "").trim();
     const doc = {
       id: getNextId(),
       title: String(input.title || "").trim(),
-      type: input.type,
+      type: docType,
       tags: Array.isArray(input.tags) ? input.tags : [],
       description: String(input.description || "").trim(),
       url: url || "#",
@@ -135,16 +135,21 @@ const KBStorage = (function () {
 
   /* ---------- Lượt xem ---------- */
 
-  /** Tăng lượt xem của tài liệu thêm 1 (gọi khi mở trang chi tiết). */
+  /** Tăng lượt xem của tài liệu thêm 1 (gọi khi mở trang chi tiết). Trả về số lượt xem mới. */
   function increaseViews(id) {
     const views = readObject(KEYS.VIEWS);
     views[id] = (Number(views[id]) || 0) + 1;
-    return writeJSON(KEYS.VIEWS, views);
+    writeJSON(KEYS.VIEWS, views);
+    // Trả về tổng lượt xem (base + tăng thêm) cho detail.js dùng
+    const baseDoc = DOCUMENTS.concat(getUserDocuments()).find(function (d) { return d.id === Number(id); });
+    const baseViews = baseDoc ? (baseDoc.views || 0) : 0;
+    return baseViews + views[id];
   }
 
   return {
     NOTE_MAX_LENGTH: NOTE_MAX_LENGTH,
     getAllDocuments: getAllDocuments,
+    getDocuments: getAllDocuments,
     getUserDocuments: getUserDocuments,
     addDocument: addDocument,
     getNote: getNote,

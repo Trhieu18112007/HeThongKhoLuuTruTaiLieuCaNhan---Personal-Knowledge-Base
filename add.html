@@ -3,22 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Thêm tài liệu - LHU Second Brain</title>
+  <meta name="description" content="Thêm PDF, video hoặc liên kết học tập vào kho tài liệu cá nhân.">
+  <title>Thêm tài liệu | LHU Second Brain</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/detail.css">
 </head>
 <body>
-  <!-- Chủ file: Tài. Đây chỉ là khung ban đầu do nhóm trưởng tạo. -->
-  <!-- Navbar: copy từ docs/components.md khi Hiền push xong (KB-12) -->
-  <header></header>
-
+  <header class="kb-header">
+    <nav class="kb-nav" aria-label="Điều hướng chính">
+      <a class="kb-brand" href="index.html">📚 LHU Second Brain</a>
+      <input type="checkbox" class="kb-nav__toggle" id="kb-nav-toggle" aria-label="Hiển thị menu điều hướng">
+      <label class="kb-nav__burger" for="kb-nav-toggle" aria-hidden="true">☰</label>
+      <ul class="kb-nav__menu">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="library.html">Kho tài liệu</a></li>
+        <li><a href="add.html" class="kb-active" aria-current="page">Thêm tài liệu</a></li>
+      </ul>
+    </nav>
+  </header>
   <main>
-    <h1>Thêm tài liệu</h1>
+    <div class="dt-container dt-add-container">
+      <nav class="dt-breadcrumb" aria-label="Đường dẫn trang"><a class="dt-back-link" href="library.html">← Quay lại kho tài liệu</a></nav>
+      <section class="dt-card" aria-labelledby="dt-add-heading">
+        <span class="kb-section-label">THƯ VIỆN CÁ NHÂN</span>
+        <h1 id="dt-add-heading">Thêm tài liệu mới</h1>
+        <p class="dt-subtitle">Lưu tiêu đề, đường dẫn và nhãn phân loại để tìm kiếm nhanh khi cần.</p>
+        <form id="dt-add-form" novalidate>
+          <div class="dt-form-grid">
+            <div class="dt-form-group">
+              <label class="dt-label" for="dt-title-input">Tiêu đề <span class="dt-req">*</span></label>
+              <input id="dt-title-input" name="title" class="dt-input" type="text" minlength="3" maxlength="100" placeholder="Ví dụ: Ôn tập HTML5" required>
+              <p id="dt-err-title" class="dt-error-msg" role="alert"></p>
+            </div>
+            <div class="dt-form-group">
+              <label class="dt-label" for="dt-format-select">Định dạng <span class="dt-req">*</span></label>
+              <select id="dt-format-select" name="type" class="dt-input" required>
+                <option value="">— Chọn định dạng —</option>
+                <option value="pdf">PDF</option>
+                <option value="video">Video</option>
+                <option value="link">Liên kết</option>
+              </select>
+              <p id="dt-err-format" class="dt-error-msg" role="alert"></p>
+            </div>
+            <div class="dt-form-group">
+              <label class="dt-label" for="dt-url-input">Đường dẫn URL <span id="dt-url-req" class="dt-req"></span></label>
+              <input id="dt-url-input" name="url" class="dt-input" type="url" maxlength="2000" inputmode="url" placeholder="https://example.com/tailieu.pdf">
+              <p class="dt-field-hint">PDF có thể để trống. Video và Liên kết phải nhập URL http(s).</p>
+              <p id="dt-err-url" class="dt-error-msg" role="alert"></p>
+            </div>
+            <div class="dt-form-group">
+              <label class="dt-label" for="dt-tags-input">Tag (phân cách bằng dấu phẩy)</label>
+              <input id="dt-tags-input" name="tags" class="dt-input" type="text" maxlength="200" placeholder="html, css, on thi">
+              <p class="dt-field-hint">Tối đa 5 tag, mỗi tag 2–20 ký tự, tự chuyển thành chữ thường không dấu.</p>
+              <p id="dt-err-tags" class="dt-error-msg" role="alert"></p>
+            </div>
+          </div>
+          <div class="dt-form-group">
+            <div class="dt-field-head"><label class="dt-label" for="dt-desc-textarea">Mô tả ngắn</label><span id="dt-desc-counter" class="dt-counter">0/200</span></div>
+            <textarea id="dt-desc-textarea" name="description" class="dt-textarea" maxlength="200" rows="4" placeholder="Tóm tắt nội dung để dễ tìm kiếm…"></textarea>
+            <p id="dt-err-desc" class="dt-error-msg" role="alert"></p>
+          </div>
+          <p id="dt-form-message" class="dt-form-message" role="status" aria-live="polite"></p>
+          <div class="dt-form-actions">
+            <a class="dt-btn dt-btn-outline" href="library.html">Hủy</a>
+            <button class="dt-btn dt-btn-primary" id="dt-submit-doc-btn" type="submit" disabled>+ Lưu tài liệu</button>
+          </div>
+        </form>
+      </section>
+      <p class="dt-field-hint dt-add-note">Dự án lưu thông tin và đường dẫn tài liệu trong trình duyệt, chưa hỗ trợ tải tệp PDF lên máy chủ.</p>
+    </div>
   </main>
-
-  <footer></footer>
-
-  <!-- Thứ tự nạp script BẮT BUỘC đúng theo mục 8 của PLAN.md; đường dẫn tương đối, không bắt đầu bằng "/" -->
+  <div id="dt-toast" class="dt-toast" role="status" aria-live="polite"></div>
+  <footer class="kb-footer"><p>© 2026 Nhóm 6 · Thiết kế Web (111101) · Đại học Lạc Hồng</p></footer>
   <script src="js/data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/add.js"></script>

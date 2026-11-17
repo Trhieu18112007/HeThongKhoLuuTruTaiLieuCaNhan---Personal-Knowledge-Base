@@ -1,0 +1,23 @@
+/* CSS bổ sung dành riêng trang Thêm tài liệu; không ghi đè css/detail.css của Tài. */
+.kb-add-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem}
+.kb-add-heading h1{margin:.25rem 0 .5rem}.kb-add-heading p{margin:0;color:var(--kb-muted)}
+.kb-add-panel{max-width:850px;margin:0 auto;background:var(--kb-surface);border:1px solid var(--kb-border);border-radius:var(--kb-radius);box-shadow:var(--kb-shadow);padding:clamp(1.2rem,3vw,2.4rem)}
+.kb-add-panel__intro{border-bottom:1px solid var(--kb-border);padding-bottom:1rem;margin-bottom:1.5rem}
+.kb-add-panel__intro h2{font-size:1.2rem;margin:0 0 .35rem}.kb-add-panel__intro p{font-size:.85rem;color:var(--kb-muted);margin:0}.kb-add-panel__intro strong{color:var(--kb-err)}
+.kb-add-field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.3rem}
+.kb-add-field label{font-size:.92rem;font-weight:700;color:var(--kb-primary-dark)}
+.kb-add-field label span{color:var(--kb-err)}
+.kb-add-field__heading{display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.kb-add-hint{color:var(--kb-muted);font-size:.78rem;line-height:1.5}
+.kb-add-textarea{resize:vertical;min-height:110px;font:inherit}
+.kb-add-error{display:block;color:var(--kb-err);font-size:.82rem;min-height:0}
+.kb-add-error:empty{display:none}
+.kb-add-field .kb-input[aria-invalid="true"],.kb-add-field .kb-select[aria-invalid="true"]{border-color:var(--kb-err);background:#fffafa}
+.kb-add-message{font-size:.89rem;margin:0;min-height:0;line-height:1.6}.kb-add-message:not(:empty){padding:.8rem 1rem;border-radius:var(--kb-radius-sm);margin-bottom:1rem}
+.kb-add-message--error{background:#fff0f0;color:#a51d23}.kb-add-message--success{background:#eaf7ed;color:#206b31}
+.kb-add-actions{display:flex;justify-content:flex-end;gap:.65rem;flex-wrap:wrap;margin-top:1.8rem;border-top:1px solid var(--kb-border);padding-top:1.4rem}
+.kb-add-actions .kb-btn{min-width:135px}
+.kb-add-actions button:disabled{opacity:.55;cursor:not-allowed;box-shadow:none;transform:none}
+.kb-add-note{max-width:850px;margin:1.3rem auto 0;color:var(--kb-muted);font-size:.81rem}
+@media(max-width:700px){.kb-add-heading{align-items:flex-start;flex-direction:column}.kb-add-heading>a{width:100%}}
+@media(max-width:450px){.kb-add-actions{flex-direction:column-reverse}.kb-add-actions .kb-btn{width:100%}}

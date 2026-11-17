@@ -3,22 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chi tiết tài liệu - LHU Second Brain</title>
+  <meta name="description" content="Xem chi tiết tài liệu, mở tài liệu gốc và lưu ghi chú cá nhân trong LHU Second Brain.">
+  <title>Chi tiết tài liệu | LHU Second Brain</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/detail.css">
 </head>
 <body>
-  <!-- Chủ file: Tài. Đây chỉ là khung ban đầu do nhóm trưởng tạo. -->
-  <!-- Navbar: copy từ docs/components.md khi Hiền push xong (KB-12) -->
-  <header></header>
-
+  <header class="kb-header">
+    <nav class="kb-nav" aria-label="Điều hướng chính">
+      <a class="kb-brand" href="index.html">📚 LHU Second Brain</a>
+      <input type="checkbox" class="kb-nav__toggle" id="kb-nav-toggle" aria-label="Hiển thị menu điều hướng">
+      <label class="kb-nav__burger" for="kb-nav-toggle" aria-hidden="true">☰</label>
+      <ul class="kb-nav__menu">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="library.html" class="kb-active">Kho tài liệu</a></li>
+        <li><a href="add.html">Thêm tài liệu</a></li>
+      </ul>
+    </nav>
+  </header>
   <main>
-    <h1>Chi tiết tài liệu</h1>
+    <div class="dt-container">
+      <nav class="dt-breadcrumb" aria-label="Đường dẫn trang"><a class="dt-back-link" href="library.html">← Quay lại kho tài liệu</a></nav>
+      <section id="dt-not-found" class="dt-card dt-error-state" hidden>
+        <h1>Không tìm thấy tài liệu</h1>
+        <p>Mã tài liệu không tồn tại hoặc URL chưa đúng.</p>
+        <a href="library.html" class="dt-btn dt-btn-primary">Về kho tài liệu</a>
+      </section>
+      <div id="dt-main-wrapper" hidden>
+        <div class="dt-grid">
+          <article class="dt-card">
+            <div class="dt-meta-top">
+              <span id="dt-format" class="dt-badge">PDF</span>
+              <time id="dt-date" class="dt-meta-text"></time>
+              <span id="dt-views" class="dt-meta-text"></span>
+            </div>
+            <h1 id="dt-title" class="dt-title">Chi tiết tài liệu</h1>
+            <div id="dt-tags" class="dt-tag-list" aria-label="Nhãn tài liệu"></div>
+            <section class="dt-summary-box" aria-label="Mô tả tài liệu">
+              <p class="dt-summary-label">Nội dung mô tả</p>
+              <p id="dt-description">Đang tải nội dung…</p>
+            </section>
+            <div class="dt-action-bar">
+              <a id="dt-open-btn" class="dt-btn dt-btn-primary" href="#" rel="noopener noreferrer" target="_blank">↗ Mở tài liệu gốc</a>
+              <a class="dt-btn dt-btn-outline" href="library.html">← Kho tài liệu</a>
+            </div>
+            <p id="dt-source-hint" class="dt-source-hint" role="status"></p>
+          </article>
+          <section class="dt-card" aria-labelledby="dt-note-heading">
+            <h2 id="dt-note-heading" class="dt-section-title">📝 Ghi chú cá nhân</h2>
+            <p class="dt-subtitle">Ghi chú được lưu ngay trong trình duyệt của bạn.</p>
+            <label class="dt-label" for="dt-note-textarea">Nội dung ghi chú</label>
+            <textarea id="dt-note-textarea" class="dt-textarea" rows="9" maxlength="500" placeholder="Viết điều bạn muốn ghi nhớ…" aria-describedby="dt-note-counter dt-note-error"></textarea>
+            <div class="dt-note-footer">
+              <p id="dt-note-error" class="dt-error-msg" role="alert"></p>
+              <span id="dt-note-counter" class="dt-counter">0/500</span>
+            </div>
+            <div class="dt-note-actions">
+              <button id="dt-save-note-btn" class="dt-btn dt-btn-primary" type="button">💾 Lưu ghi chú</button>
+              <button id="dt-delete-note-btn" class="dt-btn dt-btn-danger" type="button">Xóa ghi chú</button>
+            </div>
+          </section>
+        </div>
+        <section id="dt-related-section" class="dt-related-section" hidden aria-labelledby="dt-related-heading">
+          <h2 id="dt-related-heading">Tài liệu liên quan</h2>
+          <div id="dt-related-grid" class="dt-related-grid"></div>
+        </section>
+      </div>
+    </div>
   </main>
-
-  <footer></footer>
-
-  <!-- Thứ tự nạp script BẮT BUỘC đúng theo mục 8 của PLAN.md; đường dẫn tương đối, không bắt đầu bằng "/" -->
+  <div id="dt-toast" class="dt-toast" role="status" aria-live="polite"></div>
+  <footer class="kb-footer"><p>© 2026 Nhóm 6 · Thiết kế Web (111101) · Đại học Lạc Hồng</p></footer>
   <script src="js/data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/logic.js"></script>
