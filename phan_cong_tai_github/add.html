@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm tài liệu mới - Second Brain</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/detail.css">
+</head>
+<body>
+    <!-- Navbar đồng bộ -->
+    <header class="navbar">
+        <div class="logo">🧠 Second Brain</div>
+        <nav class="nav-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="library.html">Kho tài liệu</a>
+            <a href="add.html" class="active">+ Thêm tài liệu</a>
+        </nav>
+    </header>
+
+    <main class="dt-container dt-add-container">
+        <div class="dt-breadcrumb">
+            <a href="library.html" class="dt-back-link">← Quay lại Kho tài liệu</a>
+        </div>
+
+        <section class="dt-card">
+            <h1 class="dt-title">➕ Thêm Tài Liệu Mới</h1>
+            <p class="dt-subtitle">Điền thông tin tài liệu vào bộ não thứ hai của bạn. Hệ thống sẽ kiểm tra hợp lệ trực tiếp khi nhập.</p>
+
+            <!-- Form thêm tài liệu (KB-44) -->
+            <form id="dt-add-form" novalidate>
+                <div class="dt-form-grid">
+                    <!-- Tiêu đề (input text) -->
+                    <div class="dt-form-group">
+                        <label for="dt-title-input" class="dt-label">Tiêu đề tài liệu <span class="dt-req">*</span></label>
+                        <input type="text" id="dt-title-input" class="dt-input" required maxlength="150" placeholder="VD: Kiến trúc Microservices căn bản">
+                        <span id="dt-err-title" class="dt-error-msg"></span>
+                    </div>
+
+                    <!-- Định dạng (select) -->
+                    <div class="dt-form-group">
+                        <label for="dt-format-select" class="dt-label">Định dạng tài liệu <span class="dt-req">*</span></label>
+                        <select id="dt-format-select" class="dt-input" required>
+                            <option value="">-- Chọn định dạng --</option>
+                            <option value="PDF">📄 Tài liệu PDF</option>
+                            <option value="Video">🎥 Video bài giảng</option>
+                            <option value="Link">🔗 Liên kết bài viết (Link)</option>
+                        </select>
+                        <span id="dt-err-format" class="dt-error-msg"></span>
+                    </div>
+
+                    <!-- Đường dẫn URL (input url + Regex) -->
+                    <div class="dt-form-group">
+                        <label for="dt-url-input" class="dt-label">Đường dẫn URL <span class="dt-req">*</span></label>
+                        <input type="url" id="dt-url-input" class="dt-input" required maxlength="300" placeholder="https://example.com/tai-lieu.pdf">
+                        <span id="dt-err-url" class="dt-error-msg"></span>
+                    </div>
+
+                    <!-- Nhãn Tags (input text) -->
+                    <div class="dt-form-group">
+                        <label for="dt-tags-input" class="dt-label">Nhãn phân loại (Tags, cách nhau dấu phẩy) <span class="dt-req">*</span></label>
+                        <input type="text" id="dt-tags-input" class="dt-input" required maxlength="100" placeholder="VD: JavaScript, AI, Web">
+                        <span id="dt-err-tags" class="dt-error-msg"></span>
+                    </div>
+                </div>
+
+                <!-- Mô tả / Tóm tắt (textarea) -->
+                <div class="dt-form-group">
+                    <label for="dt-desc-textarea" class="dt-label">Mô tả / Tóm tắt nội dung <span class="dt-req">*</span></label>
+                    <textarea id="dt-desc-textarea" class="dt-textarea" rows="4" required maxlength="500" placeholder="Nhập tóm tắt nội dung chính của tài liệu (ít nhất 10 ký tự)..."></textarea>
+                    <span id="dt-err-desc" class="dt-error-msg"></span>
+                </div>
+
+                <div class="dt-form-actions">
+                    <!-- Nút Lưu bị vô hiệu cho đến khi form hợp lệ (KB-44) -->
+                    <button type="submit" id="dt-submit-doc-btn" class="dt-btn dt-btn-primary" disabled>
+                        💾 Lưu tài liệu
+                    </button>
+                    <a href="library.html" class="dt-btn dt-btn-outline">Hủy</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div id="dt-toast" class="dt-toast" role="status" aria-live="polite"></div>
+
+    <footer class="footer">
+        <p>Personal Knowledge Base (Second Brain) • Phân hệ 3 • Lạc Hồng</p>
+    </footer>
+
+    <!-- Nạp script đúng thứ tự mục 8 PLAN.md -->
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/add.js"></script>
+</body>
+</html>
