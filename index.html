@@ -1,46 +1,499 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trang chủ · Kho tài liệu cá nhân</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LHU Second Brain · Kho tài liệu cá nhân</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#f4f7fc;--surface:#fff;--ink:#14213d;--muted:#5b6b88;--line:#d9e1ef;
+  --primary:#0b4aa2;--primary-ink:#fff;--primary-soft:#e4edfb;--danger:#b42318;--ok:#067647;
+  --pdf-bg:#fde8e6;--pdf-fg:#a3200f;--video-bg:#eee8fb;--video-fg:#5a32b0;--link-bg:#dcf4e6;--link-fg:#05683e;
+  --r:10px;--shadow:0 1px 2px rgba(20,33,61,.06),0 6px 18px rgba(20,33,61,.06);
+  --font:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1426;--surface:#14203a;--ink:#e8eefb;--muted:#9fb0cf;--line:#26385c;
+  --primary:#6aa4ff;--primary-ink:#06142e;--primary-soft:#1a2c52;--danger:#ff8a7a;--ok:#5fd39b;
+  --pdf-bg:#4a1d18;--pdf-fg:#ffb4a8;--video-bg:#33265c;--video-fg:#cdb8ff;--link-bg:#12402c;--link-fg:#8be0b4;
+  --shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1426;--surface:#14203a;--ink:#e8eefb;--muted:#9fb0cf;--line:#26385c;
+  --primary:#6aa4ff;--primary-ink:#06142e;--primary-soft:#1a2c52;--danger:#ff8a7a;--ok:#5fd39b;
+  --pdf-bg:#4a1d18;--pdf-fg:#ffb4a8;--video-bg:#33265c;--video-fg:#cdb8ff;--link-bg:#12402c;--link-fg:#8be0b4;
+  --shadow:none;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--font);display:flex;flex-direction:column}
+h1,h2,h3{line-height:1.25;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 1rem}
+
+/* Header */
+.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;padding:.6rem 1rem}
+.brand{font-weight:700;font-size:1.1rem;color:var(--ink);text-decoration:none;display:flex;gap:.5rem;align-items:center}
+.brand b{background:var(--primary);color:var(--primary-ink);border-radius:8px;padding:.1rem .5rem;font-size:.95rem}
+.menu{display:flex;gap:.25rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.menu a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;border-radius:var(--r);text-decoration:none;color:var(--muted);font-weight:500}
+.menu a:hover{background:var(--primary-soft);color:var(--ink)}
+.menu a[aria-current="page"]{background:var(--primary-soft);color:var(--primary);font-weight:600}
+main{flex:1;padding:1.5rem 0 3rem}
+.view[hidden]{display:none}
+
+/* Buttons & fields */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:44px;padding:0 1.1rem;border-radius:var(--r);border:1px solid var(--primary);background:var(--primary);color:var(--primary-ink);font-weight:600;cursor:pointer;text-decoration:none;transition:filter .15s,background .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--primary)}
+.btn.ghost:hover{background:var(--primary-soft)}
+.btn.danger{background:transparent;border-color:var(--danger);color:var(--danger)}
+.input{width:100%;min-height:44px;padding:.5rem .8rem;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+textarea.input{resize:vertical;min-height:7rem}
+.input[aria-invalid="true"]{border-color:var(--danger)}
+.err{display:block;min-height:1.25rem;color:var(--danger);font-size:.85rem}
+
+/* Hero */
+.hero{background:var(--primary);color:var(--primary-ink);border-radius:16px;padding:2rem 1.25rem;margin-bottom:1.5rem}
+.hero h1{font-size:clamp(1.6rem,4vw,2.4rem);max-width:20ch}
+.hero p{margin:.6rem 0 1.2rem;max-width:56ch;opacity:.92}
+.hero form{display:flex;gap:.5rem;flex-wrap:wrap;max-width:560px}
+.hero .input{flex:1 1 220px;color:#14213d;background:#fff;border-color:#fff}
+.hero .btn{background:#fff;color:#0b4aa2;border-color:#fff}
+
+/* Home */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:.9rem 1rem}
+.stat strong{display:block;font-size:1.7rem;line-height:1.1}
+.stat span{color:var(--muted);font-size:.9rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem;box-shadow:var(--shadow)}
+.panel h2{font-size:1.05rem;margin-bottom:.5rem}
+.rows{list-style:none;margin:0;padding:0}
+.rows li+li{border-top:1px solid var(--line)}
+.row-btn{width:100%;display:flex;align-items:center;gap:.6rem;min-height:48px;padding:.4rem 0;background:none;border:0;text-align:left;cursor:pointer}
+.row-btn:hover .row-t{color:var(--primary)}
+.row-t{flex:1;font-weight:500;min-width:0}
+.row-m{color:var(--muted);font-size:.85rem;white-space:nowrap}
+
+/* Badge, chips */
+.badge{display:inline-block;padding:.05rem .55rem;border-radius:99px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.badge.pdf{background:var(--pdf-bg);color:var(--pdf-fg)}
+.badge.video{background:var(--video-bg);color:var(--video-fg)}
+.badge.link{background:var(--link-bg);color:var(--link-fg)}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{min-height:44px;padding:0 .9rem;border-radius:99px;border:1px solid var(--line);background:var(--surface);cursor:pointer;transition:background .15s}
+.chip:hover{background:var(--primary-soft)}
+.chip[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:var(--primary-ink);font-weight:600}
+.tag{display:inline-block;padding:0 .5rem;border-radius:6px;background:var(--primary-soft);color:var(--primary);font-size:.8rem}
+
+/* Library */
+.page-h{font-size:1.6rem;margin-bottom:1rem}
+.toolbar{display:grid;grid-template-columns:1fr auto auto auto;gap:.5rem;margin-bottom:.9rem}
+.seg{display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.seg button{min-height:44px;padding:0 .9rem;border:0;background:var(--surface);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--primary);color:var(--primary-ink);font-weight:600}
+.count{color:var(--muted);margin:.9rem 0 .75rem}
+.docs.card-view{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1rem;cursor:pointer;display:flex;flex-direction:column;gap:.5rem;transition:border-color .15s,box-shadow .15s}
+.doc:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.doc h3{font-size:1.02rem}
+.doc .desc{margin:0;color:var(--muted);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.doc .tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.doc .meta{margin-top:auto;display:flex;justify-content:space-between;gap:.5rem;color:var(--muted);font-size:.82rem}
+.docs.list-view{display:flex;flex-direction:column;gap:.5rem}
+.list-view .doc{flex-direction:row;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;padding:.6rem .9rem}
+.list-view .doc h3{flex:1 1 220px;min-width:0}
+.list-view .doc .desc{display:none}
+.list-view .doc .meta{margin:0;gap:.8rem}
+.empty{text-align:center;padding:2.5rem 1rem;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
+.empty h2{font-size:1.15rem;margin-bottom:.4rem}
+.empty p{color:var(--muted);margin:0 0 1rem}
+
+/* Detail & form */
+.back{margin-bottom:1rem}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:1rem;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow)}
+.dmeta{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center;color:var(--muted);font-size:.9rem;margin-bottom:.7rem}
+.card h1{font-size:1.6rem;margin-bottom:.7rem}
+.sum{background:var(--bg);border-radius:var(--r);padding:.8rem 1rem;margin:1rem 0}
+.sum b{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.2rem}
+.sum p{margin:0}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.foot{display:flex;justify-content:space-between;gap:.5rem;margin:.2rem 0 .6rem;color:var(--muted);font-size:.85rem}
+.rel{margin-top:1.5rem}
+.rel h2{font-size:1.1rem;margin-bottom:.6rem}
+.sub{color:var(--muted);margin:.2rem 0 1rem}
+.form{max-width:680px}
+.f2{display:grid;grid-template-columns:2fr 1fr;gap:1rem}
+label{display:block;font-weight:600;margin-bottom:.25rem}
+label small{font-weight:400;color:var(--muted)}
+.fg{margin-bottom:.4rem}
+.state{max-width:520px;margin:2rem auto;text-align:center}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:.7rem 1.1rem;border-radius:var(--r);font-weight:500;transition:opacity .2s,transform .2s;max-width:90vw;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.error{background:var(--danger);color:#fff}
+.foot-site{border-top:1px solid var(--line);background:var(--surface);color:var(--muted);text-align:center;padding:1rem;font-size:.88rem}
+
+@media (max-width:900px){
+  .docs.card-view{grid-template-columns:repeat(2,1fr)}
+  .grid2,.cols{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .toolbar .input{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .docs.card-view{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .f2{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr}
+  .seg button{flex:1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-  <header class="kb-header">
-    <nav class="kb-nav" aria-label="Điều hướng chính">
-      <a class="kb-brand" href="index.html">📚 Kho tài liệu</a>
-      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle">
-      <label for="kb-nav-toggle" class="kb-nav__burger" aria-label="Mở menu">☰</label>
-      <ul class="kb-nav__menu">
-        <li><a href="index.html" class="kb-active">Trang chủ</a></li>
-        <li><a href="library.html">Kho tài liệu</a></li>
-        <li><a href="add.html">Thêm tài liệu</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="kb-hero">
-      <h1>Bộ não thứ hai của bạn</h1>
-      <p>Lưu PDF, video và liên kết học tập ở một nơi, tìm lại trong vài giây.</p>
-      <form class="kb-hero__search" action="library.html" method="get" role="search">
-        <input class="kb-input" type="search" name="q" placeholder="Tìm tài liệu theo từ khóa..." aria-label="Tìm tài liệu">
-        <button class="kb-btn" type="submit">Tìm kiếm</button>
-      </form>
-    </section>
-    <div class="kb-widgets">
-      <section class="kb-widget"><h2>Xem nhiều nhất</h2><ul id="top-viewed"><li>Giáo trình HTML5 cơ bản · 120 lượt</li><li>Video CSS Grid · 98 lượt</li></ul></section>
-      <section class="kb-widget"><h2>Mới thêm</h2><ul id="recent"><li>Tài liệu JavaScript ES6 · 2026-11-10</li></ul></section>
-      <section class="kb-widget"><h2>Thống kê</h2><div id="stats"><p>12 tài liệu · 5 PDF · 4 video · 3 liên kết</p></div></section>
+<header class="top">
+  <nav class="nav" aria-label="Điều hướng chính">
+    <a class="brand" href="#home"><b>LHU</b> Second Brain</a>
+    <ul class="menu">
+      <li><a href="#home" data-nav="home">Trang chủ</a></li>
+      <li><a href="#library" data-nav="library">Kho tài liệu</a></li>
+      <li><a href="#add" data-nav="add">Thêm tài liệu</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<div class="wrap">
+
+<!-- TRANG CHỦ -->
+<section class="view" id="v-home" hidden>
+  <div class="hero">
+    <h1>Bộ não thứ hai của sinh viên LHU</h1>
+    <p>Gom PDF, video và liên kết học tập về một nơi. Gõ từ khóa là tìm lại ngay, mỗi tài liệu có ô ghi chú riêng.</p>
+    <form id="hero-form" role="search">
+      <input class="input" id="hero-q" type="search" placeholder="Tìm theo tiêu đề, mô tả, tag..." aria-label="Tìm tài liệu" autocomplete="off">
+      <button class="btn" type="submit">Tìm kiếm</button>
+    </form>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="cols">
+    <section class="panel"><h2>Xem nhiều nhất</h2><ul class="rows" id="top-viewed"></ul></section>
+    <section class="panel"><h2>Mới thêm</h2><ul class="rows" id="recent"></ul></section>
+  </div>
+</section>
+
+<!-- KHO TÀI LIỆU -->
+<section class="view" id="v-library" hidden>
+  <h1 class="page-h">Kho tài liệu</h1>
+  <div class="toolbar">
+    <input class="input" id="search-input" type="search" placeholder="Tìm theo tiêu đề, mô tả, tag..." aria-label="Tìm tài liệu" autocomplete="off">
+    <select class="input" id="type-filter" aria-label="Lọc theo định dạng">
+      <option value="all">Tất cả định dạng</option><option value="pdf">PDF</option><option value="video">Video</option><option value="link">Liên kết</option>
+    </select>
+    <select class="input" id="sort-select" aria-label="Sắp xếp">
+      <option value="views">Xem nhiều nhất</option><option value="date">Mới nhất</option><option value="title">Tên A → Z</option>
+    </select>
+    <div class="seg" id="view-toggle" role="group" aria-label="Kiểu hiển thị">
+      <button type="button" data-view="card" aria-pressed="true">Thẻ</button>
+      <button type="button" data-view="list" aria-pressed="false">Danh sách</button>
     </div>
-  </main>
-  <footer class="kb-footer">
-    <p>© 2026 Nhóm 6 · Thiết kế Web · Đại học Lạc Hồng</p>
-  </footer>
-  <script src="js/data.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/logic.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  </div>
+  <div class="chips" id="tag-chips" aria-label="Lọc theo tag"></div>
+  <p class="count" id="result-count" aria-live="polite"></p>
+  <div class="docs card-view" id="doc-container"></div>
+</section>
+
+<!-- CHI TIẾT -->
+<section class="view" id="v-detail" hidden>
+  <div class="back"><a class="btn ghost" href="#library">← Quay về Kho tài liệu</a></div>
+  <div class="card state" id="not-found" hidden>
+    <h2>Không tìm thấy tài liệu</h2>
+    <p class="sub">Tài liệu không tồn tại hoặc bạn mở trang này khi chưa chọn tài liệu nào.</p>
+    <a class="btn" href="#library">Về Kho tài liệu</a>
+  </div>
+  <div id="detail-body" hidden>
+    <div class="grid2">
+      <article class="card">
+        <div class="dmeta"><span class="badge" id="d-badge"></span><span id="d-date"></span><span id="d-views"></span></div>
+        <h1 id="d-title"></h1>
+        <div class="chips" id="d-tags"></div>
+        <div class="sum"><b>Mô tả</b><p id="d-desc"></p></div>
+        <div class="actions"><a class="btn" id="d-open" target="_blank" rel="noopener noreferrer">Mở tài liệu</a></div>
+      </article>
+      <aside class="card">
+        <h2>Ghi chú cá nhân</h2>
+        <p class="sub">Ghi chú riêng của bạn về tài liệu này, tối đa 500 ký tự.</p>
+        <label class="sr" for="note" style="position:absolute;left:-9999px">Ghi chú</label>
+        <textarea class="input" id="note" maxlength="500" placeholder="Viết ghi chú của bạn ở đây..."></textarea>
+        <div class="foot"><span class="err" id="note-err"></span><span id="note-count">0/500</span></div>
+        <div class="actions">
+          <button class="btn" id="note-save" type="button">Lưu ghi chú</button>
+          <button class="btn danger" id="note-del" type="button">Xóa ghi chú</button>
+        </div>
+      </aside>
+    </div>
+    <section class="rel" id="rel-sec" hidden><h2>Tài liệu liên quan</h2><div class="docs card-view" id="rel-grid"></div></section>
+  </div>
+</section>
+
+<!-- THÊM TÀI LIỆU -->
+<section class="view" id="v-add" hidden>
+  <div class="card form">
+    <h1 class="page-h" style="margin-bottom:.2rem">Thêm tài liệu mới</h1>
+    <p class="sub">Điền thông tin bên dưới. Nút lưu sẽ bật khi mọi trường hợp lệ.</p>
+    <form id="add-form" novalidate>
+      <div class="f2">
+        <div class="fg"><label for="f-title">Tiêu đề</label>
+          <input class="input" id="f-title" maxlength="100" placeholder="VD: Giáo trình HTML5 cơ bản" autocomplete="off">
+          <span class="err" id="e-title"></span></div>
+        <div class="fg"><label for="f-type">Định dạng</label>
+          <select class="input" id="f-type"><option value="">-- Chọn --</option><option value="pdf">PDF</option><option value="video">Video</option><option value="link">Liên kết</option></select>
+          <span class="err" id="e-type"></span></div>
+      </div>
+      <div class="fg"><label for="f-url">Đường dẫn URL <small id="url-hint">(bắt buộc với Video và Liên kết)</small></label>
+        <input class="input" id="f-url" type="url" placeholder="https://example.com/tai-lieu" autocomplete="off">
+        <span class="err" id="e-url"></span></div>
+      <div class="fg"><label for="f-tags">Tags <small>(cách nhau bằng dấu phẩy, tối đa 5)</small></label>
+        <input class="input" id="f-tags" placeholder="VD: html, css, ôn thi" autocomplete="off">
+        <span class="err" id="e-tags"></span></div>
+      <div class="fg"><label for="f-desc">Mô tả</label>
+        <textarea class="input" id="f-desc" maxlength="200" placeholder="Mô tả ngắn gọn nội dung tài liệu..."></textarea>
+        <div class="foot"><span class="err" id="e-desc"></span><span id="desc-count">0/200</span></div></div>
+      <div class="actions"><button class="btn" id="add-submit" type="submit" disabled>Lưu tài liệu</button><a class="btn ghost" href="#library">Hủy</a></div>
+    </form>
+  </div>
+</section>
+
+</div>
+</main>
+<footer class="foot-site">© 2026 Nhóm 6 · Thiết kế Web · Đại học Lạc Hồng</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ========== DATA (Data Contract: id,title,type,tags,description,url,views,addedAt,note) ========== */
+const DOCUMENTS=[
+{id:1,title:"Giáo trình HTML5 cơ bản",type:"pdf",tags:["html","co-ban"],description:"Cấu trúc trang, thẻ semantic, form và bảng. Phù hợp ôn lại kiến thức nền trước khi làm đồ án.",url:"#",views:128,addedAt:"2026-09-05",note:""},
+{id:2,title:"CSS Grid và Flexbox toàn tập",type:"pdf",tags:["css","layout"],description:"Cách dựng bố cục hai chiều bằng Grid và một chiều bằng Flexbox, kèm ví dụ responsive.",url:"#",views:96,addedAt:"2026-09-12",note:""},
+{id:3,title:"JavaScript thuần: DOM và sự kiện",type:"pdf",tags:["javascript","dom"],description:"Chọn phần tử, gắn sự kiện, tạo và cập nhật giao diện bằng JavaScript không dùng thư viện.",url:"#",views:84,addedAt:"2026-09-20",note:""},
+{id:4,title:"Cẩm nang Git cho làm việc nhóm",type:"pdf",tags:["git","lam-nhom"],description:"Quy trình nhánh, commit, pull request và cách giải quyết xung đột khi nhiều người cùng sửa.",url:"#",views:72,addedAt:"2026-10-01",note:""},
+{id:5,title:"Đề cương ôn thi Thiết kế Web",type:"pdf",tags:["on-thi","html","css"],description:"Tổng hợp câu hỏi trọng tâm và bài tập mẫu của học phần Thiết kế Web.",url:"#",views:150,addedAt:"2026-10-28",note:""},
+{id:6,title:"Responsive trong 30 phút",type:"video",tags:["css","responsive"],description:"Media query, đơn vị tương đối và cách kiểm tra giao diện ở 360, 768 và 1280px.",url:"#",views:110,addedAt:"2026-09-18",note:""},
+{id:7,title:"Luyện Regex kiểm tra form",type:"video",tags:["javascript","regex"],description:"Viết biểu thức chính quy kiểm tra email, URL, số điện thoại và báo lỗi ngay khi gõ.",url:"#",views:67,addedAt:"2026-10-08",note:""},
+{id:8,title:"Git và GitHub Pages từ đầu",type:"video",tags:["git","deploy"],description:"Tạo repo, đẩy code và bật GitHub Pages để có đường dẫn demo công khai.",url:"#",views:58,addedAt:"2026-10-15",note:""},
+{id:9,title:"Scrum cho đồ án nhóm nhỏ",type:"video",tags:["lam-nhom","scrum"],description:"Chia Sprint ngắn, họp nhanh và theo dõi tiến độ bằng bảng Kanban.",url:"#",views:44,addedAt:"2026-11-03",note:""},
+{id:10,title:"MDN Web Docs (tiếng Việt)",type:"link",tags:["html","css","javascript","tra-cuu"],description:"Tài liệu tra cứu chuẩn cho HTML, CSS và JavaScript, có ví dụ chạy thử.",url:"https://developer.mozilla.org/vi/",views:132,addedAt:"2026-09-02",note:""},
+{id:11,title:"Can I use",type:"link",tags:["css","tra-cuu"],description:"Kiểm tra trình duyệt nào hỗ trợ tính năng CSS, HTML hoặc JavaScript bạn định dùng.",url:"https://caniuse.com/",views:49,addedAt:"2026-09-25",note:""},
+{id:12,title:"Regex101",type:"link",tags:["regex","tra-cuu"],description:"Thử và giải thích biểu thức chính quy trực tiếp, hữu ích khi viết validation.",url:"https://regex101.com/",views:61,addedAt:"2026-10-11",note:""},
+{id:13,title:"Flexbox Froggy",type:"link",tags:["css","layout","luyen-tap"],description:"Trò chơi luyện Flexbox qua các màn thử thách ngắn.",url:"https://flexboxfroggy.com/#vi",views:38,addedAt:"2026-10-22",note:""},
+{id:14,title:"Hướng dẫn GitHub Pages",type:"link",tags:["git","deploy"],description:"Trang chính thức hướng dẫn xuất bản website tĩnh từ repository.",url:"https://docs.github.com/en/pages",views:41,addedAt:"2026-11-10",note:""}
+];
+
+/* ========== STORAGE (chỉ nơi này chạm localStorage; có dự phòng bộ nhớ khi bị chặn) ========== */
+const KBStorage=(()=>{
+  const mem={};
+  const read=(k,def)=>{try{const v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return mem[k]!==undefined?mem[k]:def};
+  const write=(k,v)=>{mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}return true};
+  const userDocs=()=>read("kb_user_docs",[]);
+  const notes=()=>read("kb_notes",{});
+  const views=()=>read("kb_views",{});
+  return{
+    getAllDocuments(){
+      const n=notes(),v=views();
+      return DOCUMENTS.concat(userDocs()).map(d=>({...d,tags:[...d.tags],views:d.views+(v[d.id]||0),note:n[d.id]!==undefined?n[d.id]:d.note}));
+    },
+    addDocument(data){
+      try{
+        const list=userDocs();
+        const id=Math.max(999,...list.map(d=>d.id))+1;
+        const doc={id,title:data.title,type:data.type,tags:data.tags,description:data.description,url:data.url||"#",views:0,addedAt:new Date().toISOString().slice(0,10),note:""};
+        write("kb_user_docs",list.concat(doc));return doc;
+      }catch(e){return null}
+    },
+    increaseViews(id){const v=views();v[id]=(v[id]||0)+1;write("kb_views",v)},
+    saveNote(id,text){const n=notes();n[id]=text;write("kb_notes",n)},
+    deleteNote(id){const n=notes();n[id]="";write("kb_notes",n)}
+  };
+})();
+
+/* ========== LOGIC (hàm thuần, không sửa mảng gốc, không đụng DOM) ========== */
+const vn=s=>String(s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase().replace(/-/g," ").replace(/\s+/g," ").trim();
+const Logic={
+  filterByKeyword(docs,kw){const k=vn(kw||"");if(!k)return[...docs];return docs.filter(d=>vn([d.title,d.description,...d.tags].join(" ")).includes(k))},
+  filterByType(docs,t){return!t||t==="all"?[...docs]:docs.filter(d=>d.type===t)},
+  filterByTag(docs,tag){return!tag?[...docs]:docs.filter(d=>d.tags.includes(tag))},
+  sortByViews(docs,o="desc"){return[...docs].sort((a,b)=>o==="asc"?a.views-b.views:b.views-a.views)},
+  sortByDate(docs,o="desc"){return[...docs].sort((a,b)=>o==="asc"?Date.parse(a.addedAt)-Date.parse(b.addedAt):Date.parse(b.addedAt)-Date.parse(a.addedAt))},
+  sortByTitle(docs){return[...docs].sort((a,b)=>a.title.localeCompare(b.title,"vi"))},
+  getTopViewed(docs,n=5){return Logic.sortByViews(docs).slice(0,n)},
+  getRecent(docs,n=5){return Logic.sortByDate(docs).slice(0,n)},
+  getAllTags(docs){return[...new Set(docs.flatMap(d=>d.tags))].sort((a,b)=>a.localeCompare(b,"vi"))},
+  countByType(docs){return docs.reduce((c,d)=>{c[d.type]=(c[d.type]||0)+1;return c},{pdf:0,video:0,link:0})},
+  findById(docs,id){return docs.find(d=>d.id===Number(id))||null},
+  findRelated(docs,doc,n=3){
+    return docs.filter(d=>d.id!==doc.id).map(d=>({d,s:d.tags.filter(t=>doc.tags.includes(t)).length*2+(d.type===doc.type?1:0),c:d.tags.filter(t=>doc.tags.includes(t)).length}))
+      .filter(x=>x.c>0).sort((a,b)=>b.s-a.s||b.d.views-a.d.views).slice(0,n).map(x=>x.d)},
+  applyFilters(docs,o){
+    let r=Logic.filterByKeyword(docs,o.keyword);r=Logic.filterByType(r,o.type);r=Logic.filterByTag(r,o.tag);
+    return o.sortBy==="date"?Logic.sortByDate(r):o.sortBy==="title"?Logic.sortByTitle(r):Logic.sortByViews(r)}
+};
+
+/* ========== UI ========== */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const TYPE_LABEL={pdf:"PDF",video:"Video",link:"Liên kết"};
+const fmtDate=d=>d.split("-").reverse().join("/");
+const badge=t=>`<span class="badge ${t}">${TYPE_LABEL[t]}</span>`;
+let toastTimer;
+function toast(msg,kind){const t=$("toast");t.textContent=msg;t.className="toast show"+(kind==="error"?" error":"");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2200)}
+
+const UI={
+  cards(docs,el){el.innerHTML=docs.map(d=>`<article class="doc" tabindex="0" role="link" data-open="${d.id}" aria-label="${esc(d.title)}">
+    <div>${badge(d.type)}</div><h3>${esc(d.title)}</h3><p class="desc">${esc(d.description)}</p>
+    <div class="tags">${d.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
+    <div class="meta"><span>${d.views} lượt xem</span><span>${fmtDate(d.addedAt)}</span></div></article>`).join("")},
+  chips(tags,el,active){el.innerHTML=tags.map(t=>`<button class="chip" type="button" data-tag="${esc(t)}" aria-pressed="${t===active}">${esc(t)}</button>`).join("")},
+  empty(el){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><h2>Không tìm thấy tài liệu phù hợp</h2><p>Thử đổi từ khóa hoặc bỏ bớt bộ lọc.</p><button class="btn" type="button" data-clear>Xóa bộ lọc</button></div>`},
+  rows(docs,el,metaFn){el.innerHTML=docs.map(d=>`<li><button class="row-btn" type="button" data-open="${d.id}">${badge(d.type)}<span class="row-t">${esc(d.title)}</span><span class="row-m">${metaFn(d)}</span></button></li>`).join("")}
+};
+
+/* ========== TRẠNG THÁI & ĐIỀU HƯỚNG ========== */
+const state={q:"",type:"all",tag:"",sortBy:"views",view:"card",currentId:null};
+const ROUTES=["home","library","detail","add"];
+
+function route(){
+  const name=ROUTES.includes(location.hash.slice(1))?location.hash.slice(1):"home";
+  ROUTES.forEach(r=>$("v-"+r).hidden=r!==name);
+  document.querySelectorAll("[data-nav]").forEach(a=>{const on=a.dataset.nav===name||(name==="detail"&&a.dataset.nav==="library");on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+  ({home:renderHome,library:renderLibrary,detail:renderDetail,add:renderAddForm})[name]();
+  window.scrollTo(0,0);
+}
+function go(name){location.hash==="#"+name?route():(location.hash=name)}
+function openDetail(id){state.currentId=Number(id);KBStorage.increaseViews(state.currentId);go("detail")}  // tăng lượt xem đúng 1 lần mỗi lần mở
+
+/* --- Trang chủ --- */
+function renderHome(){
+  const docs=KBStorage.getAllDocuments(),c=Logic.countByType(docs);
+  $("stats").innerHTML=[[docs.length,"Tài liệu"],[c.pdf,"PDF"],[c.video,"Video"],[c.link,"Liên kết"]].map(([n,l])=>`<div class="stat"><strong>${n}</strong><span>${l}</span></div>`).join("");
+  UI.rows(Logic.getTopViewed(docs),$("top-viewed"),d=>d.views+" lượt xem");
+  UI.rows(Logic.getRecent(docs),$("recent"),d=>fmtDate(d.addedAt));
+}
+
+/* --- Kho tài liệu --- */
+function renderLibrary(){
+  const docs=KBStorage.getAllDocuments();
+  const res=Logic.applyFilters(docs,{keyword:state.q,type:state.type,tag:state.tag,sortBy:state.sortBy});
+  if($("search-input")!==document.activeElement)$("search-input").value=state.q;
+  $("type-filter").value=state.type;$("sort-select").value=state.sortBy;
+  document.querySelectorAll("#view-toggle button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.view===state.view));
+  UI.chips(Logic.getAllTags(docs),$("tag-chips"),state.tag);
+  $("result-count").textContent=res.length?`Tìm thấy ${res.length} tài liệu`:"Không có tài liệu nào";
+  const box=$("doc-container");box.className="docs "+(state.view==="list"?"list-view":"card-view");
+  res.length?UI.cards(res,box):UI.empty(box);
+}
+
+/* --- Chi tiết --- */
+function renderDetail(){
+  const doc=state.currentId!==null?Logic.findById(KBStorage.getAllDocuments(),state.currentId):null;
+  $("not-found").hidden=!!doc;$("detail-body").hidden=!doc;
+  if(!doc)return;
+  const b=$("d-badge");b.className="badge "+doc.type;b.textContent=TYPE_LABEL[doc.type];
+  $("d-date").textContent="Ngày thêm: "+fmtDate(doc.addedAt);$("d-views").textContent=doc.views+" lượt xem";
+  $("d-title").textContent=doc.title;$("d-desc").textContent=doc.description;
+  $("d-tags").innerHTML=doc.tags.map(t=>`<button class="chip" type="button" data-tag-go="${esc(t)}">${esc(t)}</button>`).join("");
+  const open=$("d-open"),has=doc.url&&doc.url!=="#";
+  has?(open.href=doc.url,open.removeAttribute("aria-disabled"),open.textContent="Mở tài liệu"):(open.removeAttribute("href"),open.setAttribute("aria-disabled","true"),open.textContent="Chưa có đường dẫn");
+  $("note").value=doc.note;updateNoteCount();$("note-err").textContent="";
+  const rel=Logic.findRelated(KBStorage.getAllDocuments(),doc,3);
+  $("rel-sec").hidden=!rel.length;UI.cards(rel,$("rel-grid"));
+}
+function updateNoteCount(){$("note-count").textContent=$("note").value.length+"/500"}
+
+/* --- Form thêm --- */
+const URL_RE=/^https?:\/\/[^\s/$.?#][^\s]*\.[^\s]{2,}$/i;
+const slug=s=>vn(s).replace(/[^a-z0-9 ]/g,"").trim().replace(/\s+/g,"-");
+const touched={};
+function parseTags(raw){return[...new Set(raw.split(",").map(slug).filter(Boolean))]}
+function validate(){
+  const e={},title=$("f-title").value.trim(),type=$("f-type").value,url=$("f-url").value.trim(),tags=parseTags($("f-tags").value),desc=$("f-desc").value.trim();
+  if(title.length<3||title.length>100)e.title="Tiêu đề cần từ 3 đến 100 ký tự";
+  if(!type)e.type="Hãy chọn định dạng";
+  if(url?!URL_RE.test(url):type&&type!=="pdf")e.url=url?"Đường dẫn cần bắt đầu bằng http:// hoặc https://":"Video và Liên kết cần có đường dẫn";
+  if(!tags.length)e.tags="Nhập ít nhất 1 tag";
+  else if(tags.length>5)e.tags="Tối đa 5 tag";
+  else if(tags.some(t=>t.length<2||t.length>20))e.tags="Mỗi tag cần từ 2 đến 20 ký tự";
+  if(!desc)e.desc="Hãy nhập mô tả ngắn";else if(desc.length>200)e.desc="Mô tả tối đa 200 ký tự";
+  return{e,data:{title,type,url,tags,description:desc}};
+}
+function refreshForm(){
+  const{e}=validate();
+  ["title","type","url","tags","desc"].forEach(k=>{
+    const show=touched[k]&&e[k],inp=$("f-"+k);
+    $("e-"+k).textContent=show?e[k]:"";inp.setAttribute("aria-invalid",show?"true":"false");
+  });
+  $("desc-count").textContent=$("f-desc").value.length+"/200";
+  $("url-hint").textContent=$("f-type").value==="pdf"?"(có thể để trống với PDF)":"(bắt buộc với Video và Liên kết)";
+  $("add-submit").disabled=Object.keys(e).length>0;
+}
+function renderAddForm(){$("add-form").reset();Object.keys(touched).forEach(k=>delete touched[k]);refreshForm()}
+
+/* ========== SỰ KIỆN ========== */
+document.addEventListener("click",ev=>{
+  const t=ev.target;
+  const open=t.closest("[data-open]");if(open){openDetail(open.dataset.open);return}
+  const chip=t.closest("#tag-chips [data-tag]");
+  if(chip){state.tag=state.tag===chip.dataset.tag?"":chip.dataset.tag;renderLibrary();return}
+  const tg=t.closest("[data-tag-go]");if(tg){state.tag=tg.dataset.tagGo;state.q="";state.type="all";go("library");return}
+  if(t.closest("[data-clear]")){Object.assign(state,{q:"",type:"all",tag:""});renderLibrary();return}
+  const v=t.closest("#view-toggle button");if(v){state.view=v.dataset.view;renderLibrary()}
+});
+document.addEventListener("keydown",ev=>{
+  if(ev.key==="Enter"&&ev.target.matches(".doc[data-open]"))openDetail(ev.target.dataset.open);
+});
+$("hero-form").addEventListener("submit",ev=>{ev.preventDefault();Object.assign(state,{q:$("hero-q").value.trim(),type:"all",tag:""});go("library")});
+$("search-input").addEventListener("input",ev=>{state.q=ev.target.value;renderLibrary()});
+$("type-filter").addEventListener("change",ev=>{state.type=ev.target.value;renderLibrary()});
+$("sort-select").addEventListener("change",ev=>{state.sortBy=ev.target.value;renderLibrary()});
+
+$("note").addEventListener("input",()=>{updateNoteCount();$("note-err").textContent=""});
+$("note-save").addEventListener("click",()=>{
+  const text=$("note").value.trim();
+  if(!text){$("note-err").textContent="Ghi chú đang trống";return}
+  if(text.length>500){$("note-err").textContent="Ghi chú tối đa 500 ký tự";return}
+  KBStorage.saveNote(state.currentId,text);$("note").value=text;updateNoteCount();toast("Đã lưu ghi chú");
+});
+$("note-del").addEventListener("click",()=>{
+  if(!$("note").value&&!Logic.findById(KBStorage.getAllDocuments(),state.currentId).note){toast("Chưa có ghi chú để xóa","error");return}
+  KBStorage.deleteNote(state.currentId);$("note").value="";updateNoteCount();toast("Đã xóa ghi chú");
+});
+
+["title","type","url","tags","desc"].forEach(k=>{
+  const el=$("f-"+k);
+  el.addEventListener("input",()=>{touched[k]=true;if(k==="type")touched.url=touched.url||!!$("f-url").value;refreshForm()});
+  el.addEventListener("change",()=>{touched[k]=true;refreshForm()});
+  el.addEventListener("blur",()=>{touched[k]=true;refreshForm()});
+});
+$("add-form").addEventListener("submit",ev=>{
+  ev.preventDefault();
+  const{e,data}=validate();
+  if(Object.keys(e).length){Object.keys(e).forEach(k=>touched[k]=true);refreshForm();return}
+  const doc=KBStorage.addDocument(data);
+  if(!doc){toast("Không lưu được tài liệu","error");return}
+  $("add-submit").disabled=true;toast("Đã lưu tài liệu");
+  Object.assign(state,{q:"",type:"all",tag:"",sortBy:"date"});
+  setTimeout(()=>go("library"),1000);
+});
+
+window.addEventListener("hashchange",route);
+route();
+</script>
 </body>
 </html>
