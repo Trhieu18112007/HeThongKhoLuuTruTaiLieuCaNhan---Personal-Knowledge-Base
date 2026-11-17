@@ -1,0 +1,26 @@
+<!-- Ô tìm kiếm nhanh (Yêu cầu đề bài: <input type="search">) -->
+<div class="search-box">
+    <input type="search" id="searchInput" placeholder="Tìm kiếm tài liệu theo tiêu đề, từ khóa...">
+</div>
+
+<!-- Nút lọc định dạng và Chip Tags -->
+<div class="filter-controls">
+    <button class="filter-btn active" onclick="handleTypeFilter('ALL', this)">Tất cả</button>
+    <button class="filter-btn" onclick="handleTypeFilter('PDF', this)">PDF</button>
+    <button class="filter-btn" onclick="handleTypeFilter('Video', this)">Video</button>
+    <button class="filter-btn" onclick="handleTypeFilter('Link', this)">Link</button>
+    
+    <!-- Nút chuyển đổi View Mode -->
+    <div class="view-actions">
+        <button class="view-toggle-btn active" id="cardViewBtn" onclick="switchViewMode('card')"><i class="fa-solid fa-grip"></i> Card</button>
+        <button class="view-toggle-btn" id="listViewBtn" onclick="switchViewMode('list')"><i class="fa-solid fa-list"></i> List</button>
+    </div>
+</div>
+
+<!-- Hiển thị số lượng kết quả -->
+<div id="result-count" style="margin-bottom: 12px; font-size: 0.9rem; color: var(--text-muted);"></div>
+
+<!-- Container chứa danh sách tài liệu -->
+<div id="doc-container" class="documents-container card-view">
+    <!-- Dữ liệu render tự động bằng JS -->
+</div>
