@@ -3,21 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kho tài liệu - LHU Second Brain</title>
+  <title>Kho tài liệu · Kho tài liệu cá nhân</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Chủ file: Hiền. Đây chỉ là khung ban đầu do nhóm trưởng tạo. -->
-  <!-- Navbar: copy từ docs/components.md khi Hiền push xong (KB-12) -->
-  <header></header>
-
+  <header class="kb-header">
+    <nav class="kb-nav" aria-label="Điều hướng chính">
+      <a class="kb-brand" href="index.html">📚 Kho tài liệu</a>
+      <input type="checkbox" id="kb-nav-toggle" class="kb-nav__toggle">
+      <label for="kb-nav-toggle" class="kb-nav__burger" aria-label="Mở menu">☰</label>
+      <ul class="kb-nav__menu">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="library.html" class="kb-active">Kho tài liệu</a></li>
+        <li><a href="add.html">Thêm tài liệu</a></li>
+      </ul>
+    </nav>
+  </header>
   <main>
     <h1>Kho tài liệu</h1>
+    <div class="kb-toolbar">
+      <input class="kb-input" id="search-input" type="search" placeholder="Tìm theo tiêu đề, mô tả, tag..." aria-label="Tìm tài liệu">
+      <select class="kb-select" id="type-filter" aria-label="Lọc theo định dạng">
+        <option value="all">Tất cả định dạng</option><option value="pdf">PDF</option><option value="video">Video</option><option value="link">Liên kết</option>
+      </select>
+      <select class="kb-select" id="sort-select" aria-label="Sắp xếp">
+        <option value="views">Xem nhiều nhất</option><option value="date">Mới nhất</option><option value="title">Tên A → Z</option>
+      </select>
+      <div class="kb-view-toggle" id="view-toggle" role="group" aria-label="Kiểu hiển thị">
+        <button class="kb-btn kb-btn--active" type="button" data-view="card">Thẻ</button>
+        <button class="kb-btn kb-btn--ghost" type="button" data-view="list">Danh sách</button>
+      </div>
+    </div>
+    <div class="kb-chips" id="tag-chips"><button class="kb-chip kb-chip--active" type="button">css</button><button class="kb-chip" type="button">html</button><button class="kb-chip" type="button">javascript</button></div>
+    <p class="kb-result-count" id="result-count">Tìm thấy 3 tài liệu</p>
+    <!-- Dữ liệu giả để dựng bố cục; Đăng sẽ render lại bằng JS (xóa thẻ mẫu khi KB-30 xong) -->
+    <div class="kb-doc-container" id="doc-container">
+      <article class="kb-card" data-id="1"><span class="kb-badge kb-badge--pdf">PDF</span><h3 class="kb-card__title"><a href="detail.html?id=1">Giáo trình HTML5 cơ bản</a></h3><p class="kb-card__desc">Tổng quan thẻ Semantic, form và đa phương tiện trong HTML5.</p><ul class="kb-card__tags"><li class="kb-tag">html</li><li class="kb-tag">web</li></ul><div class="kb-card__meta"><span>👁 120</span><span>2026-10-01</span></div></article>
+      <article class="kb-card" data-id="2"><span class="kb-badge kb-badge--video">Video</span><h3 class="kb-card__title"><a href="detail.html?id=2">CSS Grid trong 30 phút</a></h3><p class="kb-card__desc">Bố cục lưới hai chiều, responsive không cần framework.</p><ul class="kb-card__tags"><li class="kb-tag">css</li></ul><div class="kb-card__meta"><span>👁 98</span><span>2026-10-12</span></div></article>
+      <article class="kb-card" data-id="3"><span class="kb-badge kb-badge--link">Liên kết</span><h3 class="kb-card__title"><a href="detail.html?id=3">MDN: Array.prototype.filter</a></h3><p class="kb-card__desc">Tài liệu tham khảo hàm filter, map, reduce.</p><ul class="kb-card__tags"><li class="kb-tag">javascript</li></ul><div class="kb-card__meta"><span>👁 75</span><span>2026-11-02</span></div></article>
+    </div>
+    <!-- Mẫu trạng thái rỗng (Đăng chèn khi 0 kết quả):
+    <div class="kb-empty"><p>Không tìm thấy tài liệu phù hợp.</p><button class="kb-btn" type="button">Xóa bộ lọc</button></div> -->
   </main>
-
-  <footer></footer>
-
-  <!-- Thứ tự nạp script BẮT BUỘC đúng theo mục 8 của PLAN.md; đường dẫn tương đối, không bắt đầu bằng "/" -->
+  <footer class="kb-footer">
+    <p>© 2026 Nhóm [Tên nhóm] · Thiết kế Web · Đại học Lạc Hồng</p>
+  </footer>
   <script src="js/data.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/logic.js"></script>
